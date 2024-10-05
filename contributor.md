@@ -1,13 +1,20 @@
-# Contributing to Animator
+# 🎨 **Contributing to Animator**
 
-Welcome to the **Animator** project! We are excited to collaborate with developers worldwide as part of **Hacktoberfest**. Our project focuses on building an animated website, and we appreciate your interest in contributing!
+Welcome to the **Animator** project! 🌟 We’re thrilled to have you onboard and look forward to collaborating with developers from all around the world as part of **Hacktoberfest**. This project focuses on building an engaging animated website, and we’re excited for you to bring your creativity and skills to the table. 🚀
 
-## How to Contribute
+## 🌱 **How to Contribute**
 
-1. **Fork the Repository**  
-   Click on the "Fork" button at the top of this repository to create your own copy.
+### 1. **Fork the Repository** 🍴  
+To begin, create your own copy of the repository by clicking the **Fork** button at the top-right corner of this page.
 
-2. **Clone the Forked Repository**  
-   Use the command below to clone your forked repository:
-   ```bash
-   git clone https://github.com/your-username/Animator.git
+<p align="center">
+   <img src="https://img.icons8.com/fluency/48/fork.png" alt="Fork Icon"/>
+</p>
+
+---
+
+### 2. **Clone Your Forked Repository** 🖥️  
+Once you’ve forked the repo, you’ll need to clone it to your local machine. Run the following command in your terminal:
+
+```bash
+git clone https://github.com/your-username/Animator.git
