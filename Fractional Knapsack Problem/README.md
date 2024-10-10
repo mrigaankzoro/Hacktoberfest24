@@ -22,6 +22,8 @@ The objective is to select fractions of items such that the total value is maxim
 
 The algorithm ensures the maximum value is obtained by always picking the best option available at each step.
 
+![Screenshot 2024-10-10 175713](https://github.com/user-attachments/assets/40b93089-0ce5-439e-95fc-a928e6edcd75)
+
 ## Steps:
 
 1. **Input**:
