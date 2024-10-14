@@ -7,9 +7,14 @@ using namespace std;
 
 int main()
 {
-    // Initialize the array
-    int arr[] = { 1, 45, 54, 71, 76, 12 };
-    int n = sizeof(arr) / sizeof(arr[0]);
+    // take input of array size
+    int n;
+    cin>>n;
+    //take input of array
+    int arr[n] ;
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
 
     // Initialize the max_num with the first element of the array
     int max_num = arr[0];
