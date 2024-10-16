@@ -1,44 +1,59 @@
-/*To calculate majority element in array using Moore's Voting Algorithm
-Majority Element is the element that appears more than n/2(n=size of array) times in the array
-Time complexity O(n) 
-*/
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int majorityElement(vector<int>nums){
-    int freq=0,ans=0;
-    int n=nums.size();
-    for(int i=0;i<n;i++){
-        if(freq==0){
-            ans=nums[i];
+int majorityElement(vector<int> nums) {
+    int freq = 0, candidate = 0;
+    int n = nums.size();
+    
+    for (int i = 0; i < n; i++) {
+        if (freq == 0) {
+            candidate = nums[i];
         }
-        if(ans==nums[i]){
+        if (nums[i] == candidate) {
             freq++;
-
-        }else{
+        } else {
             freq--;
         }
     }
-    int count=0;
-    for(int val:nums){
-        if(val==ans){
+    
+    int count = 0;
+    for (int val : nums) {
+        if (val == candidate) {
             count++;
         }
     }
-    if(count>n/2){
-        return ans;
-    }else{
+    
+    if (count > n / 2) {
+        return candidate;
+    } else {
         return -1;
     }
-
-    return ans;
 }
 
-int main(){
-    vector<int> nums={1,2,2,1,1};
+int main() {
+    int n;
+    
+    cout << "Enter the number of votes: ";
+    cin >> n;
+    
+    if (n <= 0) {
+        cout << "Invalid number of votes. Please enter a positive number." << endl;
+        return 1;
+    }
 
-    int ans=majorityElement(nums);
-    cout<< "Majority Element="<< ans<< endl;
+    vector<int> nums(n);
+    cout << "Enter the votes (numbers separated by space): ";
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+    int ans = majorityElement(nums);
+    
+    if (ans != -1) {
+        cout << "The Majority Element is: " << ans << endl;
+    } else {
+        cout << "No Majority Element found." << endl;
+    }
+
     return 0;
 }
