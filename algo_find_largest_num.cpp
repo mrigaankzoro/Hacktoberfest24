@@ -11,7 +11,19 @@
 */
 
 #include <iostream>
+#include <vector>
 using namespace std;
+
+// Function to find the largest element in the array
+int findLargest(const vector<int>& arr) {
+    int max = arr[0];
+    for (int i = 1; i < arr.size(); i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
 
 int main() {
     int n;
@@ -20,26 +32,26 @@ int main() {
     cout << "Enter the number of elements: ";
     cin >> n;
 
-    int arr[n];
+    // Check for valid input
+    if (n <= 0) {
+        cout << "Number of elements must be positive." << endl;
+        return 1;
+    }
+
+    vector<int> arr(n);
 
     // Input array elements
     cout << "Enter the elements of the array: ";
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
 
-    // Initialize max with the first element
-    int max = arr[0];
-
-    // Loop through the array to find the largest element
-    for(int i = 1; i < n; i++) {
-        if(arr[i] > max) {
-            max = arr[i];
-        }
-    }
+    // Find the largest element
+    int max = findLargest(arr);
 
     // Output the largest element
     cout << "The largest number is: " << max << endl;
 
     return 0;
 }
+
