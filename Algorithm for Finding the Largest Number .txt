@@ -1,0 +1,37 @@
+Input:
+
+Start by reading a list of numbers from the user input, where numbers are separated by spaces.
+Check for Empty List:
+
+If the list is empty, return None to indicate there are no elements to compare.
+Initialize Largest Number:
+
+Set the first element of the list as the initial largest number.
+Traverse the List:
+
+Iterate through the list starting from the first element:
+For each element, compare it with the current largest number.
+If the current element is greater than the largest number, update the largest number.
+Output:
+
+After traversing the entire list, return the largest number.
+If the list was empty, print a message indicating the list was empty.
+End.
+
+Step-by-Step Example:
+Input: user_input = "5 10 3 15 7"
+
+Convert it to a list: arr = [5, 10, 3, 15, 7].
+Initialize:
+
+Set the first number (5) as the largest number.
+Iterate:
+
+Compare 5 (largest) with 5: no change.
+Compare 5 (largest) with 10: update largest to 10.
+Compare 10 (largest) with 3: no change.
+Compare 10 (largest) with 15: update largest to 15.
+Compare 15 (largest) with 7: no change.
+Output:
+
+The largest number is 15.
