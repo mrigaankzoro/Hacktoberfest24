@@ -6,6 +6,7 @@ int majorityElement(vector<int> nums) {
     int freq = 0, candidate = 0;
     int n = nums.size();
     
+    // First pass: Find the candidate using Boyer-Moore Voting Algorithm
     for (int i = 0; i < n; i++) {
         if (freq == 0) {
             candidate = nums[i];
@@ -17,6 +18,7 @@ int majorityElement(vector<int> nums) {
         }
     }
     
+    // Second pass: Verify if the candidate is actually the majority element
     int count = 0;
     for (int val : nums) {
         if (val == candidate) {
@@ -27,7 +29,7 @@ int majorityElement(vector<int> nums) {
     if (count > n / 2) {
         return candidate;
     } else {
-        return -1;
+        return -1; // No majority element found
     }
 }
 
@@ -47,6 +49,7 @@ int main() {
     for (int i = 0; i < n; i++) {
         cin >> nums[i];
     }
+    
     int ans = majorityElement(nums);
     
     if (ans != -1) {
