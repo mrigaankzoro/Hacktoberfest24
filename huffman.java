@@ -9,6 +9,7 @@ class HuffmanNode {
     HuffmanNode left;
     HuffmanNode right;
 
+    // Constructor for leaf nodes (which store characters)
     HuffmanNode(char character, int frequency) {
         this.character = character;
         this.frequency = frequency;
@@ -16,6 +17,7 @@ class HuffmanNode {
         this.right = null;
     }
 
+    // Constructor for internal nodes (which store frequencies and pointers to children)
     HuffmanNode(int frequency) {
         this.frequency = frequency;
         this.left = null;
@@ -23,7 +25,7 @@ class HuffmanNode {
     }
 }
 
-class HuffmanCoding {
+public class HuffmanCoding {
 
     /**
      * Method to build the Huffman tree.
