@@ -1,29 +1,47 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int main(){
-    int n1,n2;
-    cin>>n1>>n2;
+int main() {
+    int n1, n2;
     char op;
-    cin>>op;
-    switch(op){
+
+    // Input two numbers
+    cout << "Enter two numbers: ";
+    cin >> n1 >> n2;
+
+    // Input the operator
+    cout << "Enter an operator (+, -, *, /, %): ";
+    cin >> op;
+
+    // Switch case to perform the selected operation
+    switch (op) {
         case '+':
-        cout<<n1+n2<<endl;
-        break;
+            cout << "Result: " << n1 + n2 << endl;
+            break;
         case '-':
-        cout<<n1-n2<<endl;
-        break;
+            cout << "Result: " << n1 - n2 << endl;
+            break;
         case '*':
-        cout<<n1*n2<<endl;
-        break;
+            cout << "Result: " << n1 * n2 << endl;
+            break;
         case '/':
-        cout<<n1/n2<<endl;
-        break;
+            if (n2 != 0) {
+                cout << "Result: " << n1 / n2 << endl;
+            } else {
+                cout << "Error: Division by zero is undefined." << endl;
+            }
+            break;
         case '%':
-        cout<<n1%n2<<endl;
-        break;
+            if (n2 != 0) {
+                cout << "Result: " << n1 % n2 << endl;
+            } else {
+                cout << "Error: Division by zero is undefined." << endl;
+            }
+            break;
         default:
-        cout<<"Invalid operator"<<endl;
+            cout << "Error: Invalid operator." << endl;
+            break;
     }
+
     return 0;
 }
