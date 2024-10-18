@@ -1,71 +1,67 @@
 #include <iostream>
- 
 using namespace std;
- 
-// A function to heapify the array.
-void MaxHeapify(int a[], int i, int n)
-{
-	int j, temp;
-	temp = a[i];
-	j = 2*i;
- 
- 	while (j <= n)
-	{
-		if (j < n && a[j+1] > a[j])
-		j = j+1;
-		// Break if parent value is already greater than child value.
-		if (temp > a[j])
-			break;
-		// Switching value with the parent node if temp < a[j].
-		else if (temp <= a[j])
-		{
-			a[j/2] = a[j];
-			j = 2*j;
-		}
-	}
-	a[j/2] = temp;
-	return;
+
+// Function to heapify a subtree rooted with node i
+void MaxHeapify(int arr[], int n, int i) {
+    int largest = i;  // Initialize largest as root
+    int left = 2 * i + 1;  // left = 2*i + 1
+    int right = 2 * i + 2; // right = 2*i + 2
+
+    // If left child is larger than root
+    if (left < n && arr[left] > arr[largest]) {
+        largest = left;
+    }
+
+    // If right child is larger than largest so far
+    if (right < n && arr[right] > arr[largest]) {
+        largest = right;
+    }
+
+    // If largest is not root
+    if (largest != i) {
+        swap(arr[i], arr[largest]); // Swap root with largest
+
+        // Recursively heapify the affected subtree
+        MaxHeapify(arr, n, largest);
+    }
 }
-void HeapSort(int a[], int n)
-{
-	int i, temp;
-	for (i = n; i >= 2; i--)
-	{
-		// Storing maximum value at the end.
-		temp = a[i];
-		a[i] = a[1];
-		a[1] = temp;
-		// Building max heap of remaining element.
-		MaxHeapify(a, 1, i - 1);
-	}
+
+// Function to perform Heap Sort
+void HeapSort(int arr[], int n) {
+    // Build a maxheap
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        MaxHeapify(arr, n, i);
+    }
+
+    // One by one extract elements from heap
+    for (int i = n - 1; i >= 0; i--) {
+        swap(arr[0], arr[i]); // Move current root to end
+        MaxHeapify(arr, i, 0); // call max heapify on the reduced heap
+    }
 }
-void Build_MaxHeap(int a[], int n)
-{
-	int i;
-	for(i = n/2; i >= 1; i--)
-		MaxHeapify(a, i, n);
+
+// Function to print the array
+void PrintArray(int arr[], int n) {
+    cout << "Sorted Data: ";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
 }
-int main()
-{
-	int n, i;
-	cout<<"\nEnter the number of data element to be sorted: ";
-	cin>>n;
-	n++;
-	int arr[n];
-	for(i = 1; i < n; i++)
-	{
-		cout<<"Enter element "<<i<<": ";
-		cin>>arr[i];
-	}
-	// Building max heap.
-	Build_MaxHeap(arr, n-1);
-	HeapSort(arr, n-1);
- 
-	// Printing the sorted data.
-	cout<<"\nSorted Data ";
- 
-	for (i = 1; i < n; i++)
-		cout<<"->"<<arr[i];
- 
-	return 0;
+
+int main() {
+    int n;
+    cout << "Enter the number of data elements to be sorted: ";
+    cin >> n;
+    
+    int arr[n];
+    for (int i = 0; i < n; i++) {
+        cout << "Enter element " << i + 1 << ": ";
+        cin >> arr[i];
+    }
+
+    HeapSort(arr, n); // Perform heap sort
+    PrintArray(arr, n); // Print sorted array
+
+    return 0;
 }
