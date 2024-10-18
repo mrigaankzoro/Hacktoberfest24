@@ -7,57 +7,30 @@
 
 
 # Function to find the partition position
-def partition(array, low, high):
+def partition(arr, low, high):
+    pivot = arr[high]
+    i = low - 1  # Pointer for the smaller element
 
-    # choose the rightmost element as pivot
-    pivot = array[high]
-
-    # pointer for greater element
-    i = low - 1
-
-    # traverse through all elements
-    # compare each element with pivot
     for j in range(low, high):
-        if array[j] <= pivot:
+        if arr[j] <= pivot:
+            i += 1  # Increment the index of the smaller element
+            arr[i], arr[j] = arr[j], arr[i]  
 
-            # If element smaller than pivot is found
-            # swap it with the greater element pointed by i
-            i = i + 1
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1  # Return the index of the pivot
 
-            # Swapping element at i with element at j
-            (array[i], array[j]) = (array[j], array[i])
-
-    # Swap the pivot element with the greater element specified by i
-    (array[i + 1], array[high]) = (array[high], array[i + 1])
-
-    # Return the position from where partition is done
-    return i + 1
-
-# function to perform quicksort
-
-
-def quickSort(array, low, high):
+def quick_sort(arr, low, high):
     if low < high:
+        # Partition the array
+        pi = partition(arr, low, high)
 
-        # Find pivot element such that
-        # element smaller than pivot are on the left
-        # element greater than pivot are on the right
-        pi = partition(array, low, high)
+        quick_sort(arr, low, pi - 1)
+        quick_sort(arr, pi + 1, high)
 
-        # Recursive call on the left of pivot
-        quickSort(array, low, pi - 1)
-
-        # Recursive call on the right of pivot
-        quickSort(array, pi + 1, high)
-
-
-data = [1, 7, 4, 1, 10, 9, -2]
-print("Unsorted Array")
-print(data)
-
-size = len(data)
-
-quickSort(data, 0, size - 1)
-
-print('Sorted Array in Ascending Order:')
-print(data)
+if __name__ == "__main__":
+    arr = [10, 7, 8, 9, 1, 5]
+    n = len(arr)
+    
+    print("Original array:", arr)
+    quick_sort(arr, 0, n - 1)
+    print("Sorted array:", arr)
