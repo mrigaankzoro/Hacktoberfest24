@@ -1,48 +1,86 @@
-#include <iostream>
-#include <string>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
 
-class Solution {
-public:
-    string addBinary(string a, string b) {
-        // Make both strings of equal length by prepending zeros
-        if(a.size() > b.size())
-            b = string(a.size() - b.size(), '0') + b;
-        else if(a.size() != b.size())
-            a = string(b.size() - a.size(), '0') + a;
-        
-        string result(a.size(), '0'); // Initialize result string with zeros
-        bool carry = false; // Initialize carry to false
-        
-        for(int i = a.size() - 1; i >= 0; --i)
-        {
-            if((a[i] == '1' && b[i] == '0') || (a[i] == '0' && b[i] == '1'))
-            {
-                result[i] = carry ? '0' : '1';
-            }
-            else if(a[i] == '0' && b[i] == '0')
-            {
-                result[i] = carry ? '1' : '0';
-                carry = false;
-            }
-            else if(a[i] == '1' && b[i] == '1')
-            {
-                result[i] = carry ? '1' : '0';
-                carry = true;
-            }
-        }
-        if(carry)
-            result = '1' + result;
-        
-        return result;
-    }
+// Define the structure for a BST node
+struct Node {
+    int data;
+    struct Node *left;
+    struct Node *right;
 };
 
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->left = newNode->right = NULL;
+    return newNode;
+}
+
+// Function to insert a new node in the BST
+struct Node* insert(struct Node* root, int data) {
+    if (root == NULL) {
+        return createNode(data);
+    }
+    if (data < root->data) {
+        root->left = insert(root->left, data);
+    } else {
+        root->right = insert(root->right, data);
+    }
+    return root;
+}
+
+// Function for in-order traversal
+void inorder(struct Node* root) {
+    if (root != NULL) {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+// Function for pre-order traversal
+void preorder(struct Node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+// Function for post-order traversal
+void postorder(struct Node* root) {
+    if (root != NULL) {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d ", root->data);
+    }
+}
+
+// Main function to demonstrate the BST operations
 int main() {
-    Solution sol;
-    string a = "1010";
-    string b = "1011";
-    cout << sol.addBinary(a, b) << endl; // Output should be "10101"
+    struct Node* root = NULL;
+
+    // Inserting elements into the BST
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 20);
+    insert(root, 40);
+    insert(root, 70);
+    insert(root, 60);
+    insert(root, 80);
+
+    // Traversals
+    printf("In-order traversal: ");
+    inorder(root);
+    printf("\n");
+
+    printf("Pre-order traversal: ");
+    preorder(root);
+    printf("\n");
+
+    printf("Post-order traversal: ");
+    postorder(root);
+    printf("\n");
 
     return 0;
 }
