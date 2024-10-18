@@ -1,52 +1,61 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
-
-// mat1[R1][C1] and mat2[R2][C2]
-#define R1 2 // number of rows in Matrix-1
-#define C1 2 // number of columns in Matrix-1
-#define R2 2 // number of rows in Matrix-2
-#define C2 2 // number of columns in Matrix-2
-
-void mulMat(int mat1[][C1], int mat2[][C2])
-{
-    int rslt[R1][C2];
-
-    cout << "Multiplication of given two matrices is:\n";
-
-    for (int i = 0; i < R1; i++) {
-        for (int j = 0; j < C2; j++) {
-            rslt[i][j] = 0;
-
-            for (int k = 0; k < R2; k++) {
-                rslt[i][j] += mat1[i][k] * mat2[k][j];
+vector<vector<int>> multiplyMatrices(const vector<vector<int>>& A, const vector<vector<int>>& B) {
+    int rowsA = A.size();
+    int colsA = A[0].size();
+    int rowsB = B.size();
+    int colsB = B[0].size();
+    if (colsA != rowsB) {
+        throw invalid_argument("Number of columns in A must be equal to number of rows in B.");
+    }
+    vector<vector<int>> result(rowsA, vector<int>(colsB, 0));
+    for (int i = 0; i < rowsA; i++) {
+        for (int j = 0; j < colsB; j++) {
+            for (int k = 0; k < colsA; k++) {
+                result[i][j] += A[i][k] * B[k][j];
             }
-            cout << rslt[i][j] << "\t";
+        }
+    }
+    return result;
+}
+void displayMatrix(const vector<vector<int>>& matrix) {
+    for (const auto& row : matrix) {
+        for (int value : row) {
+            cout << value << " ";
         }
         cout << endl;
     }
 }
 
-// Driver code
-int main()
-{
-    int mat1[R1][C1] = { { 1, 3 },
-                         { 2, 4 } };
+int main() {
+    int rowsA, colsA, rowsB, colsB;
+    cout << "Enter number of rows and columns for Matrix A: ";
+    cin >> rowsA >> colsA;
 
-    int mat2[R2][C2] = { { 1, 2 },
-                         { 3, 4 } };
-
-    if (C1 != R2) {
-        cout << "The number of columns in Matrix-1  must "
-                "be equal to the number of rows in "
-                "Matrix-2"
-             << endl;
-        cout << "Please update MACROs according to your "
-                "array dimension in #define section"
-             << endl;
-
-        exit(EXIT_FAILURE);
+    vector<vector<int>> A(rowsA, vector<int>(colsA));
+    cout << "Enter elements of Matrix A:\n";
+    for (int i = 0; i < rowsA; i++) {
+        for (int j = 0; j < colsA; j++) {
+            cin >> A[i][j];
+        }
     }
-    mulMat(mat1, mat2);
 
+    cout << "Enter number of rows and columns for Matrix B: ";
+    cin >> rowsB >> colsB;
+    vector<vector<int>> B(rowsB, vector<int>(colsB));
+    cout << "Enter elements of Matrix B:\n";
+    for (int i = 0; i < rowsB; i++) {
+        for (int j = 0; j < colsB; j++) {
+            cin >> B[i][j];
+        }
+    }
+    try {
+        vector<vector<int>> result = multiplyMatrices(A, B);
+        cout << "Resultant Matrix after multiplication:\n";
+        displayMatrix(result);
+    } catch (const invalid_argument& e) {
+        cout << "Error: " << e.what() << endl;
+    }
     return 0;
 }
