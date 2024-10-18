@@ -1,40 +1,31 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-// returns true if there is a triplet with a sum equal 
-// to 'sum' present in arr. Also, prints the triplet 
-bool find3Numbers(vector<int>& arr, int sum) 
-{
-    int n = arr.size();
+def find3Numbers(arr, target_sum):
+    n = len(arr)
     
-    // Fix the first element as arr[i] 
-    for (int i = 0; i < n - 2; i++)
-    { 
-        // Fix the second element as arr[j] 
-        for (int j = i + 1; j < n - 1; j++)
-        { 
-            // Now look for the third number 
-            for (int k = j + 1; k < n; k++)
-            { 
-                if (arr[i] + arr[j] + arr[k] == sum)
-                { 
-                    cout << "Triplet is " << arr[i] <<
-                        ", " << arr[j] << ", " << arr[k]; 
-                    return true; 
-                } 
-            } 
-        } 
-    } 
+    # Sort the array to use a two-pointer technique later
+    arr.sort()
+    
+    # Iterate through the array to find the triplet
+    for i in range(n - 2):
+        # Use two pointers to find the remaining two numbers
+        left = i + 1
+        right = n - 1
+        
+        while left < right:
+            current_sum = arr[i] + arr[left] + arr[right]
+            
+            if current_sum == target_sum:
+                print(f"Triplet is {arr[i]}, {arr[left]}, {arr[right]}")
+                return True
+            elif current_sum < target_sum:
+                left += 1  # Increase the sum by moving the left pointer to the right
+            else:
+                right -= 1  # Decrease the sum by moving the right pointer to the left
+    
+    return False
 
-    // If we reach here, then no triplet was found 
-    return false; 
-} 
-
-//Driver code
-int main() 
-{ 
-    vector<int> arr = { 1, 4, 45, 6, 10, 8 }; 
-    int sum = 22; 
-    find3Numbers(arr, sum); 
-    return 0; 
-}
+# Driver code
+if __name__ == "__main__":
+    arr = [1, 4, 45, 6, 10, 8]
+    target_sum = 22
+    if not find3Numbers(arr, target_sum):
+        print("No triplet found")
