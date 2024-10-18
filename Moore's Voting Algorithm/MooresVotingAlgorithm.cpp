@@ -5,7 +5,6 @@ using namespace std;
 int majorityElement(vector<int> nums) {
     int freq = 0, candidate = 0;
     int n = nums.size();
-    
     for (int i = 0; i < n; i++) {
         if (freq == 0) {
             candidate = nums[i];
@@ -25,9 +24,9 @@ int majorityElement(vector<int> nums) {
     }
     
     if (count > n / 2) {
-        return candidate;
+        return candidate; 
     } else {
-        return -1;
+        return -1; 
     }
 }
 
@@ -36,7 +35,7 @@ int main() {
     
     cout << "Enter the number of votes: ";
     cin >> n;
-    
+
     if (n <= 0) {
         cout << "Invalid number of votes. Please enter a positive number." << endl;
         return 1;
@@ -45,10 +44,10 @@ int main() {
     vector<int> nums(n);
     cout << "Enter the votes (numbers separated by space): ";
     for (int i = 0; i < n; i++) {
-        cin >> nums[i];
+        cin >> nums[i]; 
     }
-    int ans = majorityElement(nums);
     
+    int ans = majorityElement(nums);
     if (ans != -1) {
         cout << "The Majority Element is: " << ans << endl;
     } else {
