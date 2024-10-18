@@ -5,7 +5,6 @@
 # At the very end of partition() function, the pointer is swapped with the pivot
 # to come up with a "sorted" nums relative to the pivot
 
-
 # Function to find the partition position
 def partition(array, low, high):
 
@@ -34,8 +33,6 @@ def partition(array, low, high):
     return i + 1
 
 # function to perform quicksort
-
-
 def quickSort(array, low, high):
     if low < high:
 
