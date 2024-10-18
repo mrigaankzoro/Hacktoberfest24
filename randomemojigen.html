@@ -1,44 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emoji Rain</title>
-  <style>
-    body {
-      overflow: hidden;
-      background-color: #000;
-      margin: 0;
-      height: 100vh;
-    }
-    .emoji {
-      position: absolute;
-      font-size: 2rem;
-      animation: fall linear infinite;
-    }
-    @keyframes fall {
-      to {
-        transform: translateY(100vh);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<script>
-  const emojis = ['🌸', '💧', '🔥', '⭐', '🍀', '🍕', '🎲', '👾'];
-  
-  function createEmoji() {
-    const emoji = document.createElement('div');
-    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    emoji.classList.add('emoji');
-    emoji.style.left = `${Math.random() * 100}vw`;
-    emoji.style.animationDuration = `${Math.random() * 3 + 2}s`;
-    document.body.appendChild(emoji);
+    <h1>Typing Speed Test</h1>
+    <div id="test-section">
+        <p id="words-display"></p>
+        <textarea id="typing-area" placeholder="Start typing here..."></textarea>
+        <button id="start-test">Start Test</button>
+        <p id="result"></p>
+    </div>
 
-    emoji.addEventListener('animationend', () => emoji.remove());
-  }
-
-  setInterval(createEmoji, 300);
-</script>
+    <script src="/static/script.js"></script>
 </body>
 </html>
