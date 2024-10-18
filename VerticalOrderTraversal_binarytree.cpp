@@ -1,61 +1,69 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// constructing class to define structure of a tree node 
-class TreeNode{
+// Node structure for the BST
+class TreeNode {
 public:
- int val;
- TreeNode* left;
- TreeNode* right;
- TreeNode(): val(0), left(nullptr), right(nullptr) {}
- TreeNode(int x): val(x), left(nullptr), right(nullptr) {}
- TreeNode(int x, TreeNode* left, TreeNode* right): val(x), left(left), right(right) {}
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
-// function for vertical order traversal of binary tree
-vector<vector<int>> verticalOrderTraversal(TreeNode* root){
-  // edge case: if tree is empty
-  if(root == nullptr) return {};
-  
-  // map to store nodes grouped by their horizontal(x) and vertical(y) positions
-  map<int,map<int,multiset<int>>> mpp;
-  // queue for traversal: stores nodes and its position(x,y)
-  queue<pair<TreeNode*,pair<int,int>>> q;
-  // starting traversal from root at position(0,0)
-  q.push({root,{0,0}});
-  
-  // bfs traversal
-  while(!q.empty()){
-    auto p = q.front(); // get first node
-    q.pop(); // remove it from queue
-    TreeNode* node = p.first; // current node
-    int x = p.second.first; // horizontal distance
-    int y = p.second.second; // vertical distance
-    mpp[x][y].insert(node->val); // insert nodes's value into the multiset corresponding to its position(x,y)
-    // if there's a left child, push it to the queue with position(x-1, y+1)
-    if(node->left) q.push({node->left,{x-1,y+1}});
-    // if there's a right child, push it to the queue with position(x+1, y+1)
-    if(node->right) q.push({node->right,{x+1,y+1}});
-  }
-  
-  // vector of vectors to store nodes in vertical order
-  vector<vector<int>> ans;
-  // traverse map by horizontal distance(x)
-  for(auto it: mpp){
-    // traverse through all levels (y) for the current x and insert nodes
-    vector<int> nodes;
-    for(auto q: it.second){
-      nodes.insert(nodes.end(),q.second.begin(), q.second.end());
+// Function to insert a new value into the BST
+TreeNode* insert(TreeNode* root, int val) {
+    if (root == nullptr) {
+        return new TreeNode(val);
     }
-    // add the current vertical line nodes to the result
-    ans.push_back(nodes);
-  }
-  // return the result
-  return ans;
+    if (val < root->val) {
+        root->left = insert(root->left, val);
+    } else {
+        root->right = insert(root->right, val);
+    }
+    return root;
 }
 
-// main function to take input(currently empty)
-int main(){
+// Function to search for a value in the BST
+bool search(TreeNode* root, int val) {
+    if (root == nullptr) {
+        return false;
+    }
+    if (root->val == val) {
+        return true;
+    } 
+    return val < root->val ? search(root->left, val) : search(root->right, val);
+}
 
-  return 0;
+// Function for in-order traversal of the BST
+void inorderTraversal(TreeNode* root) {
+    if (root == nullptr) {
+        return;
+    }
+    inorderTraversal(root->left);
+    cout << root->val << " ";
+    inorderTraversal(root->right);
+}
+
+// Main function to demonstrate BST operations
+int main() {
+    TreeNode* root = nullptr;
+    
+    // Inserting values into the BST
+    root = insert(root, 5);
+    insert(root, 3);
+    insert(root, 8);
+    insert(root, 1);
+    insert(root, 4);
+
+    // Searching for values in the BST
+    cout << "Searching for 4: " << (search(root, 4) ? "Found" : "Not Found") << endl;
+    cout << "Searching for 10: " << (search(root, 10) ? "Found" : "Not Found") << endl;
+
+    // In-order traversal of the BST
+    cout << "In-order traversal: ";
+    inorderTraversal(root);
+    cout << endl;
+
+    return 0;
 }
