@@ -1,58 +1,46 @@
 #include <iostream>
 #include <vector>
-using namespace std;
 
-int majorityElement(vector<int> nums) {
-    int freq = 0, candidate = 0;
-    int n = nums.size();
-    
-    for (int i = 0; i < n; i++) {
-        if (freq == 0) {
-            candidate = nums[i];
-        }
-        if (nums[i] == candidate) {
-            freq++;
+int findMajorityElement(const std::vector<int>& nums) {
+    int candidate = -1;
+    int count = 0;
+
+    // Phase 1: Find the candidate
+    for (int num : nums) {
+        if (count == 0) {
+            candidate = num;
+            count = 1;
+        } else if (num == candidate) {
+            count++;
         } else {
-            freq--;
+            count--;
         }
     }
-    
-    int count = 0;
-    for (int val : nums) {
-        if (val == candidate) {
+
+    // Phase 2: Verify the candidate
+    count = 0;
+    for (int num : nums) {
+        if (num == candidate) {
             count++;
         }
     }
-    
-    if (count > n / 2) {
+
+    // Check if candidate is actually the majority
+    if (count > nums.size() / 2) {
         return candidate;
     } else {
-        return -1;
+        return -1; // Indicating no majority element
     }
 }
 
 int main() {
-    int n;
-    
-    cout << "Enter the number of votes: ";
-    cin >> n;
-    
-    if (n <= 0) {
-        cout << "Invalid number of votes. Please enter a positive number." << endl;
-        return 1;
-    }
+    std::vector<int> nums = {3, 2, 3};
+    int majorityElement = findMajorityElement(nums);
 
-    vector<int> nums(n);
-    cout << "Enter the votes (numbers separated by space): ";
-    for (int i = 0; i < n; i++) {
-        cin >> nums[i];
-    }
-    int ans = majorityElement(nums);
-    
-    if (ans != -1) {
-        cout << "The Majority Element is: " << ans << endl;
+    if (majorityElement != -1) {
+        std::cout << "The majority element is: " << majorityElement << std::endl;
     } else {
-        cout << "No Majority Element found." << endl;
+        std::cout << "No majority element found." << std::endl;
     }
 
     return 0;
