@@ -1,22 +1,45 @@
-def find_largest_number(arr):
-    # Check if the array is empty
-    if not arr:
-        return None  # Return None if the list is empty
+import java.util.Scanner;
 
-    largest = arr[0]
+public class LargestNumber {
 
-    for num in arr:
-        if num > largest:
-            largest = num
+    public static int findLargestNumber(int[] arr) {
+        if (arr.length == 0) {
+            return Integer.MIN_VALUE; // Return a minimum value if the array is empty
+        }
 
-    return largest
+        int largest = arr[0]; // Assume the first number is the largest
 
-if __name__ == "__main__":
-    user_input = input("Enter numbers separated by spaces: ")
-    arr = [int(num) for num in user_input.split()]  
+        for (int num : arr) {
+            if (num > largest) {
+                largest = num; // Update largest if current number is bigger
+            }
+        }
 
-    largest_number = find_largest_number(arr)
-    if largest_number is not None:
-        print("The largest number is:", largest_number)
-    else:
-        print("The list is empty.")
+        return largest;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of elements: ");
+        int n = scanner.nextInt();
+        int[] numbers = new int[n];
+
+        // Input elements
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter element " + (i + 1) + ": ");
+            numbers[i] = scanner.nextInt();
+        }
+
+        // Finding the largest number
+        int largestNumber = findLargestNumber(numbers);
+        
+        if (largestNumber != Integer.MIN_VALUE) {
+            System.out.println("The largest number is: " + largestNumber);
+        } else {
+            System.out.println("The array is empty.");
+        }
+
+        scanner.close();
+    }
+}
