@@ -1,32 +1,36 @@
-def fractional_knapsack(capacity, values, weights):
-    # Create a list of items with value-to-weight ratio, value, and weight
-    items = []
-    for i in range(len(values)):
-        ratio = values[i] / weights[i]
-        items.append((ratio, values[i], weights[i]))
+class Item:
+    def __init__(self, value, weight):
+        self.value = value
+        self.weight = weight
+        self.ratio = value / weight  # Calculate value-to-weight ratio
 
-    # Sort the items by their value-to-weight ratio in descending order
-    items.sort(reverse=True, key=lambda x: x[0])
-
-    total_value = 0  # Store the total value of items taken
-
+def fractional_knapsack(capacity, items):
+    # Sort items by value-to-weight ratio in descending order
+    items.sort(key=lambda x: x.ratio, reverse=True)
+    
+    total_value = 0  # Variable to store total value of knapsack
     for item in items:
-        ratio, value, weight = item
-
-        if capacity >= weight:
-            # If we can take the full item, add its full value
-            capacity -= weight
-            total_value += value
+        if capacity <= 0:
+            break  # If the knapsack is full, break out of the loop
+        
+        if item.weight <= capacity:
+            # If the item can be fully accommodated, take it all
+            total_value += item.value
+            capacity -= item.weight
         else:
-            # Take the fractional part of the item
-            total_value += value * (capacity / weight)
-            break
-
+            # If the item cannot be fully accommodated, take the fraction
+            total_value += item.ratio * capacity  # Add value of the fraction
+            capacity = 0  # The knapsack is now full
+            
     return total_value
 
 # Example usage
-values = [60, 100, 120]
-weights = [10, 20, 30]
-capacity = 50
-
-print(f"Maximum value: {fractional_knapsack(capacity, values, weights)}")
+if __name__ == "__main__":
+    items = [
+        Item(60, 10),
+        Item(100, 20),
+        Item(120, 30)
+    ]
+    capacity = 50
+    max_value = fractional_knapsack(capacity, items)
+    print(f"Maximum value in the knapsack: {max_value}")
