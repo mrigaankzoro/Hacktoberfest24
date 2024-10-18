@@ -1,29 +1,46 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int main(){
-    int n1,n2;
-    cin>>n1>>n2;
-    char op;
-    cin>>op;
-    switch(op){
+int main() {
+    char operation;
+    double num1, num2, result;
+
+    // Displaying the menu
+    cout << "Welcome to the Simple Calculator!" << endl;
+    cout << "Enter the operation you want to perform (+, -, *, /): ";
+    cin >> operation;
+
+    // Input the two numbers
+    cout << "Enter two numbers: ";
+    cin >> num1 >> num2;
+
+    // Performing the operation based on user input
+    switch (operation) {
         case '+':
-        cout<<n1+n2<<endl;
-        break;
+            result = num1 + num2;
+            cout << "Result: " << num1 << " + " << num2 << " = " << result << endl;
+            break;
         case '-':
-        cout<<n1-n2<<endl;
-        break;
+            result = num1 - num2;
+            cout << "Result: " << num1 << " - " << num2 << " = " << result << endl;
+            break;
         case '*':
-        cout<<n1*n2<<endl;
-        break;
+            result = num1 * num2;
+            cout << "Result: " << num1 << " * " << num2 << " = " << result << endl;
+            break;
         case '/':
-        cout<<n1/n2<<endl;
-        break;
-        case '%':
-        cout<<n1%n2<<endl;
-        break;
+            // Checking for division by zero
+            if (num2 != 0) {
+                result = num1 / num2;
+                cout << "Result: " << num1 << " / " << num2 << " = " << result << endl;
+            } else {
+                cout << "Error: Division by zero is not allowed." << endl;
+            }
+            break;
         default:
-        cout<<"Invalid operator"<<endl;
+            cout << "Error: Invalid operation!" << endl;
+            break;
     }
+
     return 0;
 }
