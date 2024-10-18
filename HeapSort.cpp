@@ -1,71 +1,53 @@
 #include <iostream>
- 
+#include <vector>
+
 using namespace std;
- 
-// A function to heapify the array.
-void MaxHeapify(int a[], int i, int n)
-{
-	int j, temp;
-	temp = a[i];
-	j = 2*i;
- 
- 	while (j <= n)
-	{
-		if (j < n && a[j+1] > a[j])
-		j = j+1;
-		// Break if parent value is already greater than child value.
-		if (temp > a[j])
-			break;
-		// Switching value with the parent node if temp < a[j].
-		else if (temp <= a[j])
-		{
-			a[j/2] = a[j];
-			j = 2*j;
-		}
-	}
-	a[j/2] = temp;
-	return;
+
+void heapify(vector<int>& arr, int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
 }
-void HeapSort(int a[], int n)
-{
-	int i, temp;
-	for (i = n; i >= 2; i--)
-	{
-		// Storing maximum value at the end.
-		temp = a[i];
-		a[i] = a[1];
-		a[1] = temp;
-		// Building max heap of remaining element.
-		MaxHeapify(a, 1, i - 1);
-	}
+
+void buildHeap(vector<int>& arr, int n) {
+    int start = n / 2 - 1;
+
+    for (int i = start; i >= 0; i--)
+        heapify(arr, n, i);
 }
-void Build_MaxHeap(int a[], int n)
-{
-	int i;
-	for(i = n/2; i >= 1; i--)
-		MaxHeapify(a, i, n);
+
+void heapSort(vector<int>& arr) {
+    int n = arr.size();
+
+    buildHeap(arr, n);
+
+    for (int i = n - 1; i >= 0; i--) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
 }
-int main()
-{
-	int n, i;
-	cout<<"\nEnter the number of data element to be sorted: ";
-	cin>>n;
-	n++;
-	int arr[n];
-	for(i = 1; i < n; i++)
-	{
-		cout<<"Enter element "<<i<<": ";
-		cin>>arr[i];
-	}
-	// Building max heap.
-	Build_MaxHeap(arr, n-1);
-	HeapSort(arr, n-1);
- 
-	// Printing the sorted data.
-	cout<<"\nSorted Data ";
- 
-	for (i = 1; i < n; i++)
-		cout<<"->"<<arr[i];
- 
-	return 0;
+
+int main() {
+    vector<int> arr = {12, 11, 13, 5, 6, 7};
+    int n = arr.size();
+
+    heapSort(arr);
+
+    cout << "Sorted array is \n";
+    for (int i = 0; i < n; ++i)
+        cout << arr[i] << " ";
+    cout << endl;
+
+    return 0;
 }
