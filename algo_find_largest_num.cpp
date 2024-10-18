@@ -16,13 +16,13 @@ using namespace std;
 
 // Function to find the largest element in the array
 int findLargest(const vector<int>& arr) {
-    int max = arr[0];
+    int max = arr[0];  // Initialize max with the first element
     for (int i = 1; i < arr.size(); i++) {
         if (arr[i] > max) {
-            max = arr[i];
+            max = arr[i];  // Update max if current element is larger
         }
     }
-    return max;
+    return max;  // Return the largest element
 }
 
 int main() {
@@ -54,4 +54,3 @@ int main() {
 
     return 0;
 }
-
