@@ -1,0 +1,35 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Typing Test</h1>
+        <p id="text-to-type">This is a typing test. Try to type this text as quickly as possible.</p>
+        <textarea id="user-input" placeholder="Start typing above text here..."></textarea>
+        <div id="result"></div>
+        <button id="submit-btn">Submit</button>
+    </div>
+
+    <script>
+        const textToType = document.getElementById('text-to-type').innerText;
+        const userInput = document.getElementById('user-input');
+        const result = document.getElementById('result');
+        const submitBtn = document.getElementById('submit-btn');
+
+        submitBtn.addEventListener('click', () => {
+            const userText = userInput.value;
+            if (userText === textToType) {
+                result.innerText = "Great job! Your typing is correct.";
+            } else {
+                result.innerText = "Oops! Your typing was incorrect. Try again.";
+            }
+        });
+    </script>
+</body>
+</html>
