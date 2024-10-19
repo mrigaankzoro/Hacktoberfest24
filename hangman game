@@ -1,0 +1,88 @@
+Hangman game
+
+
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+
+void displayWord(string word, vector<bool> guessed) {
+    for (size_t i = 0; i < word.length(); i++) {
+        if (guessed[i]) {
+            cout << word[i] << " ";
+        } else {
+            cout << "_ ";
+        }
+    }
+    cout << endl;
+}
+
+
+bool isWordGuessed(vector<bool> guessed) {
+    for (bool g : guessed) {
+        if (!g) return false;
+    }
+    return true;
+}
+
+int main() {
+    
+    vector<string> words = {"programming", "hangman", "computer", "cplusplus", "development"};
+    
+    
+    srand(static_cast<unsigned int>(time(0)));
+    
+    
+    string word = words[rand() % words.size()];
+    vector<bool> guessed(word.length(), false); // Tracks guessed letters
+    int attemptsLeft = 7; // Number of allowed wrong attempts
+    vector<char> wrongGuesses; // Stores wrong guesses
+
+    cout << "Welcome to Hangman!\n";
+
+    while (attemptsLeft > 0) {
+        cout << "\nAttempts left: " << attemptsLeft << endl;
+        displayWord(word, guessed);
+
+        cout << "Wrong guesses: ";
+        for (char c : wrongGuesses) {
+            cout << c << " ";
+        }
+        cout << endl;
+
+        
+        cout << "Enter a letter: ";
+        char guess;
+        cin >> guess;
+
+        
+        bool correctGuess = false;
+        for (size_t i = 0; i < word.length(); i++) {
+            if (word[i] == guess) {
+                guessed[i] = true;
+                correctGuess = true;
+            }
+        }
+
+        
+        if (!correctGuess) {
+            wrongGuesses.push_back(guess);
+            attemptsLeft--;
+        }
+
+        
+        if (isWordGuessed(guessed)) {
+            cout << "Congratulations! You guessed the word: " << word << endl;
+            break;
+        }
+    }
+
+    
+    if (attemptsLeft == 0) {
+        cout << "Game over! The word was: " << word << endl;
+    }
+
+    return 0;
+}
