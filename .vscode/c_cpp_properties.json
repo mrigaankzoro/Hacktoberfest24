@@ -1,18 +1,18 @@
-{
-  "configurations": [
+<script>
+  const configurations = [
     {
-      "name": "windows-clang-x64",
-      "includePath": [
+      name: "windows-clang-x64",
+      includePath: [
         "${workspaceFolder}/**"
       ],
-      "compilerPath": "clang",
-      "cStandard": "${default}",
-      "cppStandard": "${default}",
-      "intelliSenseMode": "windows-clang-x64",
-      "compilerArgs": [
-        ""
+      compilerPath: "clang",
+      cStandard: "c11", // Specify a default C standard (change if needed)
+      cppStandard: "c++17", // Specify a default C++ standard (change if needed)
+      intelliSenseMode: "windows-clang-x64",
+      compilerArgs: [
+        // Add any additional compiler arguments here
       ]
     }
-  ],
-  "version": 4
-}
+  ];
+  const version = 4; // Version of the configuration format
+</script>
