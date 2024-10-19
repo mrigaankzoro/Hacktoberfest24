@@ -35,7 +35,7 @@ public:
             int v = q.front();
             q.pop();
 
-            std::cout << v << " ";
+            std::cout << v << " "; // Print the vertex
 
             // Get all the adjacent vertices of the dequeued vertex
             for (int neighbor : adjList[v]) {
