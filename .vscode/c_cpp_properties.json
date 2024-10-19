@@ -3,16 +3,16 @@
     {
       "name": "windows-clang-x64",
       "includePath": [
-        "${workspaceFolder}/**"
+        "${workspaceFolder}/**"  // Include all files in the workspace
       ],
-      "compilerPath": "clang",
-      "cStandard": "${default}",
-      "cppStandard": "${default}",
-      "intelliSenseMode": "windows-clang-x64",
+      "compilerPath": "clang",    // Specify the path to the Clang compiler
+      "cStandard": "c11",          // Set the C standard (you can adjust as needed)
+      "cppStandard": "c++17",      // Set the C++ standard (adjust as necessary)
+      "intelliSenseMode": "windows-clang-x64", // IntelliSense mode for Windows with Clang
       "compilerArgs": [
-        ""
+        // Add any additional compiler arguments here
       ]
     }
   ],
-  "version": 4
+  "version": 4 // Configuration version
 }
