@@ -1,4 +1,3 @@
-//Here’s how you can implement Depth-First Search (DFS) on the graph created earlier. DFS can be implemented recursively or iteratively; I’ll show you the recursive approach here.
 #include <iostream>
 #include <unordered_map>
 #include <list>
@@ -32,8 +31,14 @@ public:
 
     // Function to perform DFS traversal starting from vertex 'start'
     void DFS(int start) {
-        // Keep track of visited vertices
-        std::vector<bool> visited(adjList.size(), false);
+        // Find the maximum vertex number
+        int maxVertex = 0;
+        for (const auto& pair : adjList) {
+            maxVertex = std::max(maxVertex, pair.first);
+        }
+
+        // Keep track of visited vertices (size should be maxVertex + 1)
+        std::vector<bool> visited(maxVertex + 1, false);
 
         // Call the recursive helper function to perform DFS
         DFSUtil(start, visited);
