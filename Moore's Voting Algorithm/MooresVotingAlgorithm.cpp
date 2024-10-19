@@ -1,59 +1,61 @@
-#include <iostream>
-#include <vector>
-using namespace std;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majority Element Finder</title>
+</head>
+<body>
+    <h1>Majority Element Finder</h1>
+    <script>
+        function majorityElement(nums) {
+            let freq = 0, candidate = null;
 
-int majorityElement(vector<int> nums) {
-    int freq = 0, candidate = 0;
-    int n = nums.size();
-    
-    for (int i = 0; i < n; i++) {
-        if (freq == 0) {
-            candidate = nums[i];
+            for (let num of nums) {
+                if (freq === 0) {
+                    candidate = num;
+                }
+                freq += (num === candidate) ? 1 : -1;
+            }
+
+            // Verify the candidate
+            let count = 0;
+            for (let num of nums) {
+                if (num === candidate) {
+                    count++;
+                }
+            }
+
+            return count > nums.length / 2 ? candidate : null;
         }
-        if (nums[i] == candidate) {
-            freq++;
-        } else {
-            freq--;
+
+        function main() {
+            const n = parseInt(prompt("Enter the number of votes: "), 10);
+
+            if (n <= 0) {
+                alert("Invalid number of votes. Please enter a positive number.");
+                return;
+            }
+
+            const votes = prompt("Enter the votes (numbers separated by space): ");
+            const nums = votes.split(' ').map(Number);
+
+            if (nums.length !== n) {
+                alert("The number of votes does not match the specified count.");
+                return;
+            }
+
+            const ans = majorityElement(nums);
+
+            if (ans !== null) {
+                alert("The Majority Element is: " + ans);
+            } else {
+                alert("No Majority Element found.");
+            }
         }
-    }
-    
-    int count = 0;
-    for (int val : nums) {
-        if (val == candidate) {
-            count++;
-        }
-    }
-    
-    if (count > n / 2) {
-        return candidate;
-    } else {
-        return -1;
-    }
-}
 
-int main() {
-    int n;
-    
-    cout << "Enter the number of votes: ";
-    cin >> n;
-    
-    if (n <= 0) {
-        cout << "Invalid number of votes. Please enter a positive number." << endl;
-        return 1;
-    }
+        main();
+    </script>
+</body>
+</html>
 
-    vector<int> nums(n);
-    cout << "Enter the votes (numbers separated by space): ";
-    for (int i = 0; i < n; i++) {
-        cin >> nums[i];
-    }
-    int ans = majorityElement(nums);
-    
-    if (ans != -1) {
-        cout << "The Majority Element is: " << ans << endl;
-    } else {
-        cout << "No Majority Element found." << endl;
-    }
-
-    return 0;
-}
