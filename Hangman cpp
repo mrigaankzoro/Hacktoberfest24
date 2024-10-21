@@ -1,0 +1,103 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>  // for rand() and srand()
+#include <ctime>    // for time()
+#include <algorithm> // for find()
+
+using namespace std;
+
+// Function to display the current state of the guessed word
+void displayWord(const string& word, const vector<bool>& guessed) {
+    for (int i = 0; i < word.length(); i++) {
+        if (guessed[i]) {
+            cout << word[i] << " ";
+        } else {
+            cout << "_ ";
+        }
+    }
+    cout << endl;
+}
+
+// Function to check if the word is fully guessed
+bool isWordGuessed(const vector<bool>& guessed) {
+    for (bool g : guessed) {
+        if (!g) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    // List of words for the hangman game
+    vector<string> words = {"programming", "hangman", "challenge", "computer", "science"};
+
+    // Seed random number generator
+    srand(time(0));
+
+    // Randomly select a word
+    string word = words[rand() % words.size()];
+
+    // Variables for the game
+    int lives = 6;  // Number of wrong guesses allowed
+    vector<bool> guessed(word.length(), false);  // Tracks which letters have been guessed correctly
+    vector<char> wrongGuesses;  // Tracks wrong guesses
+
+    cout << "Welcome to Hangman!" << endl;
+
+    // Main game loop
+    while (lives > 0) {
+        // Display the current state of the word
+        cout << "\nCurrent word: ";
+        displayWord(word, guessed);
+
+        // Display wrong guesses
+        if (!wrongGuesses.empty()) {
+            cout << "Wrong guesses: ";
+            for (char c : wrongGuesses) {
+                cout << c << " ";
+            }
+            cout << endl;
+        }
+
+        // Prompt the user for a guess
+        char guess;
+        cout << "Enter a letter: ";
+        cin >> guess;
+
+        // Check if the letter has already been guessed
+        if (find(wrongGuesses.begin(), wrongGuesses.end(), guess) != wrongGuesses.end()) {
+            cout << "You already guessed that letter! Try again." << endl;
+            continue;
+        }
+
+        // Check if the guessed letter is in the word
+        bool correctGuess = false;
+        for (int i = 0; i < word.length(); i++) {
+            if (word[i] == guess) {
+                guessed[i] = true;
+                correctGuess = true;
+            }
+        }
+
+        // If the guess was incorrect, reduce lives
+        if (!correctGuess) {
+            lives--;
+            wrongGuesses.push_back(guess);
+            cout << "Wrong guess! You have " << lives << " lives remaining." << endl;
+        }
+
+        // Check if the word is fully guessed
+        if (isWordGuessed(guessed)) {
+            cout << "Congratulations! You've guessed the word: " << word << endl;
+            break;
+        }
+    }
+
+    // If the player runs out of lives
+    if (lives == 0) {
+        cout << "You've run out of lives! The word was: " << word << endl;
+    }
+
+    return 0;
+}
