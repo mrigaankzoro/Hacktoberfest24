@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+int countNiceSubarrays(std::vector<int>& nums, int k) {
+    int count = 0;
+    int left = 0;
+    int oddCount = 0;
+    // Use a sliding window to count the subarrays with at most k odd numbers
+    for (int right = 0; right < nums.size(); ++right) {
+        // Increment the count of odd numbers in the window
+        if (nums[right] % 2 != 0) {
+            oddCount++;
+        }
+        // Shrink the window from the left if there are more than k odd numbers
+        while (oddCount > k) {
+            if (nums[left] % 2 != 0) {
+                oddCount--;
+            }
+            left++;
+        }
+        // Count how many valid subarrays end at right
+        int tempLeft = left;
+        while (tempLeft < right && nums[tempLeft] % 2 == 0) {
+            tempLeft++;
+        }
+        // Add the number of valid subarrays ending at right
+        count += (tempLeft - left + 1);
+    }
+
+    return count;
+}
+
+int main() {
+    std::vector<int> nums;
+    int n, k, value;
+
+    std::cout << "Enter the number of elements in the array: ";
+    std::cin >> n;
+    std::cout << "Enter the elements of the array: ";
+    for (int i = 0; i < n; ++i) {
+        std::cin >> value;
+        nums.push_back(value);
+    }
+    std::cout << "Enter the value of k: ";
+    std::cin >> k;
+
+    int result = countNiceSubarrays(nums, k);
+    std::cout << "Number of nice subarrays with exactly " << k << " odd numbers: " << result << std::endl;
+
+    return 0;
+}
+Footer
