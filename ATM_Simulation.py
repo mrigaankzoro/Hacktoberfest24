@@ -56,8 +56,7 @@ while True:
          Transaction_history[dt]=(f"{Deposit_amount} amount of cash deposited")
          n= int (input("Exit = 0\nContinue = 1\nEnter - "))
          if n==1:
-             print("""Welcome!!! 
-             
+             print("""Welcome!!!""")
              continue
          elif n==0:
              break
