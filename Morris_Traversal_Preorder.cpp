@@ -10,40 +10,42 @@
  * };
  */
 
-/*Time Complexity: O(2N) where N is the number of nodes in the Binary Tree.
-                The time complexity is linear, as each node is visited at most 
-                twice (once for establishing the temporary link and once for reverting it).
+/* Time Complexity: O(2N) where N is the number of nodes in the Binary Tree.
+   The time complexity is linear, as each node is visited at most 
+   twice (once for establishing the temporary link and once for reverting it).
 
-  Space Complexity : O(1) No additional space is used hence maintaining a space complexity of O(1).
+   Space Complexity : O(1) No additional space is used hence maintaining a space complexity of O(1).
 */
 
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
-        vector<int> preorder ; 
-        TreeNode* cur=root;
-        while(cur!=NULL){
-          
-            if(cur->left ==NULL) {
-                preorder.push_back(cur->val);
-                cur = cur->right ;
-            }
-            else{
-                TreeNode* prev= cur->left;
-                while(prev->right && prev->right!=cur){
-                    prev= prev->right;
+        vector<int> result; 
+        TreeNode* current = root;
+
+        while (current) {
+            if (!current->left) {
+                result.push_back(current->val); // Visit the node
+                current = current->right; // Move to the right child
+            } else {
+                // Find the rightmost node in the left subtree
+                TreeNode* predecessor = current->left;
+                while (predecessor->right && predecessor->right != current) {
+                    predecessor = predecessor->right;
                 }
-                if(prev->right == NULL) {
-                    prev->right = cur; //make temporary link to root node from leftmost node of left subtree
-                    preorder.push_back(cur->val);
-                    cur= cur->left;
-                }
-                if(prev->right == cur){
-                    prev->right = NULL; //remove temporary link to root node
-                    cur = cur->right; 
+
+                // Make a temporary link from the predecessor to the current node
+                if (!predecessor->right) {
+                    predecessor->right = current; // Establish temporary link
+                    result.push_back(current->val); // Visit the node
+                    current = current->left; // Move to the left child
+                } else {
+                    // Restore the original tree structure
+                    predecessor->right = nullptr; // Remove temporary link
+                    current = current->right; // Move to the right child
                 }
             }
         }
-        return preorder;
+        return result;
     }
 };
