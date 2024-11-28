@@ -1,29 +1,26 @@
 import java.util.Arrays;
 
 public class CountingSort {
-    public static void bucketSort(int[] arr, int low, int high) {
-        int[] hist = new int[high - low + 1];
-
+    public static void countingSort(int[] arr) {
+        int max = Arrays.stream(arr).max().getAsInt();
+        int[] count = new int[max + 1];
         for (int num : arr) {
-            hist[num - low]++;
+            count[num]++;
         }
-
         int index = 0;
-
-        for (int i = 0; i < hist.length; i++) {
-            for (int j = 0; j < hist[i]; j++) {
-                arr[index++] = i + low;
+        for (int i = 0; i < count.length; i++) {
+            while (count[i] > 0) {
+                arr[index++] = i;
+                count[i]--;
             }
         }
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, 1, 5, 2, 2, 3, 0, 0, -1, 2};
+        int[] arr = {4, 2, 2, 8, 3, 3, 1};
+        System.out.println("Original Array: " + Arrays.toString(arr));
 
-        System.out.println("Unsorted array: " + Arrays.toString(arr));
-
-        bucketSort(arr, -1, 5);
-
-        System.out.println("Sorted array: " + Arrays.toString(arr));
+        countingSort(arr);
+        System.out.println("Sorted Array: " + Arrays.toString(arr));
     }
 }
