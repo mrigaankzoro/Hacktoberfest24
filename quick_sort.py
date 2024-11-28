@@ -1,63 +1,39 @@
-# Python program for implementation of Quicksort Sort
+def quick_sort(arr):
+    """
+    Sorts an array using the Quick Sort algorithm.
 
-# This implementation utilizes pivot as the last element in the nums list
-# It has a pointer to keep track of the elements smaller than the pivot
-# At the very end of partition() function, the pointer is swapped with the pivot
-# to come up with a "sorted" nums relative to the pivot
+    Parameters:
+    arr (list): The list of elements to be sorted.
 
+    Returns:
+    list: A new sorted list.
+    """
 
-# Function to find the partition position
-def partition(array, low, high):
+    # Base case: if the array has one or zero elements, it's already sorted
+    if len(arr) <= 1:
+        return arr
 
-    # choose the rightmost element as pivot
-    pivot = array[high]
+    # Choosing the pivot (here, we take the last element)
+    pivot = arr[-1]
+    left = []  # Elements less than the pivot
+    right = []  # Elements greater than the pivot
+    equal = []  # Elements equal to the pivot
 
-    # pointer for greater element
-    i = low - 1
+    # Partitioning the array
+    for element in arr:
+        if element < pivot:
+            left.append(element)
+        elif element > pivot:
+            right.append(element)
+        else:
+            equal.append(element)
 
-    # traverse through all elements
-    # compare each element with pivot
-    for j in range(low, high):
-        if array[j] <= pivot:
+    # Recursively applying quick sort to left and right sub-arrays
+    return quick_sort(left) + equal + quick_sort(right)
 
-            # If element smaller than pivot is found
-            # swap it with the greater element pointed by i
-            i = i + 1
-
-            # Swapping element at i with element at j
-            (array[i], array[j]) = (array[j], array[i])
-
-    # Swap the pivot element with the greater element specified by i
-    (array[i + 1], array[high]) = (array[high], array[i + 1])
-
-    # Return the position from where partition is done
-    return i + 1
-
-# function to perform quicksort
-
-
-def quickSort(array, low, high):
-    if low < high:
-
-        # Find pivot element such that
-        # element smaller than pivot are on the left
-        # element greater than pivot are on the right
-        pi = partition(array, low, high)
-
-        # Recursive call on the left of pivot
-        quickSort(array, low, pi - 1)
-
-        # Recursive call on the right of pivot
-        quickSort(array, pi + 1, high)
-
-
-data = [1, 7, 4, 1, 10, 9, -2]
-print("Unsorted Array")
-print(data)
-
-size = len(data)
-
-quickSort(data, 0, size - 1)
-
-print('Sorted Array in Ascending Order:')
-print(data)
+# Example usage:
+if __name__ == "__main__":
+    sample_array = [10, 7, 8, 9, 1, 5]
+    sorted_array = quick_sort(sample_array)
+    print("Original array:", sample_array)
+    print("Sorted array:", sorted_array)
